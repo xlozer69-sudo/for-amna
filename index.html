@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Will you be my Valentine?</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f9c5d1;
+      font-family: Arial, sans-serif;
+    }
+
+    .card {
+      background: #fff;
+      padding: 30px 40px 40px;
+      border-radius: 18px;
+      text-align: center;
+      width: 360px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      position: relative;
+    }
+
+    /* 🔝 TOP ICON */
+    .icon {
+      width: 80px;
+      margin-bottom: 15px;
+    }
+
+    h2 {
+      margin-bottom: 25px;
+    }
+
+    .buttons {
+      position: relative;
+      height: 70px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    button {
+      padding: 12px 28px;
+      border: none;
+      border-radius: 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #yes {
+      background: #ff4d6d;
+      color: white;
+      position: relative;
+      left: -40px;   /* YES thora left */
+    }
+
+    #no {
+      background: #ddd;
+      position: absolute;
+      right: 40px;
+    }
+
+    /* ENDING SCREEN */
+    .ending {
+      display: none;
+    }
+
+    .ending h1 {
+      font-size: 28px;
+      margin-top: 10px;
+    }
+
+    .ending img {
+      width: 220px;
+      margin-top: 20px;
+      border-radius: 14px;
+    }
+
+    /* CONFETTI */
+    .confetti {
+      position: fixed;
+      width: 6px;
+      height: 6px;
+      animation: fall 3s linear infinite;
+    }
+
+    @keyframes fall {
+      from { transform: translateY(-100px); }
+      to { transform: translateY(100vh); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+
+    <!-- 🔝 Upper icon GIF -->
+    <img class="icon" src="me.gif" alt="me">
+
+    <h2 id="question">Amna will you be my Valentine? 💖</h2>
+
+    <div class="buttons" id="buttons">
+      <button id="yes">Yes</button>
+      <button id="no">No</button>
+    </div>
+
+    <!-- 🎉 Ending -->
+    <div class="ending" id="ending">
+      <h1>YAY! 🎉</h1>
+      <img src="us.gif" alt="us">
+    </div>
+
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("no");
+    const yesBtn = document.getElementById("yes");
+    const question = document.getElementById("question");
+    const buttons = document.getElementById("buttons");
+    const ending = document.getElementById("ending");
+
+    // No button bhaagta rahe
+    noBtn.addEventListener("mouseenter", () => {
+      const x = Math.random() * 160 - 80;
+      const y = Math.random() * 80 - 40;
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    });
+
+    // Yes click → ending
+    yesBtn.addEventListener("click", () => {
+      question.style.display = "none";
+      buttons.style.display = "none";
+      ending.style.display = "block";
+      startConfetti();
+    });
+
+    function startConfetti() {
+      for (let i = 0; i < 40; i++) {
+        const c = document.createElement("div");
+        c.classList.add("confetti");
+        c.style.left = Math.random() * window.innerWidth + "px";
+        c.style.background = `hsl(${Math.random() * 360},100%,60%)`;
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 3000);
+      }
+    }
+  </script>
+
+</body>
+</html>
